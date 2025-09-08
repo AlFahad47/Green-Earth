@@ -5,6 +5,32 @@ const getCategories = () => {
 };
 getCategories();
 
+// modal full tree details
+const fullTreeDetailsModal = (plant) => {
+  console.log(plant);
+  const detailsBox = document.getElementById("details-container");
+  detailsBox.innerHTML = `
+
+  <div>
+   <h2  class="font-bold text-lg mb-2">${plant.name}</h2>
+  </div>
+
+   <div
+              class=" max-h-64 overflow-hidden rounded-lg flex items-center"
+            >
+              <img
+                src="${plant.image}"
+                alt=""
+                class=""
+              />
+            </div>
+    <h2 class="my-2" > <span class="font-bold text-sm ">Category:</span>  ${plant.category}</h2>
+    <h2  > <span class="font-bold text-sm">Price:</span>  ${plant.price}</h2>
+    <h2 class="my-2" > <span class="font-bold text-sm">Description:</span>  ${plant.description}</h2>
+  
+  `;
+  document.getElementById("word_modal").showModal();
+};
 const loadTreeCards = (id) => {
   const url =
     id === 0
@@ -65,12 +91,12 @@ const displayCategories = (categories) => {
 //   }
 
 const displayTreeCards = (plants) => {
-  console.log(plants);
+  // console.log(plants);
   const treeCardsBox = document.getElementById("tree_cards_box");
   treeCardsBox.innerHTML = "";
 
   for (let plant of plants) {
-    console.log(plant);
+    // console.log(plant);
     const card = document.createElement("div");
     card.innerHTML = `
     
@@ -89,7 +115,9 @@ const displayTreeCards = (plants) => {
             </div>
 
             <div class="space-y-2 my-3 w-11/12">
-              <h2 class="font-semibold text-sm">${plant.name}</h2>
+              <h2 onclick='fullTreeDetailsModal(${JSON.stringify(
+                plant
+              )})' class="font-semibold text-sm">${plant.name}</h2>
               <p class="font-normal text-xs">
                 ${shortDescription(plant.description)}
               </p>
