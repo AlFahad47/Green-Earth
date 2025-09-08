@@ -31,7 +31,19 @@ const fullTreeDetailsModal = (plant) => {
   `;
   document.getElementById("word_modal").showModal();
 };
+
+const manageSpinner = (status) => {
+  if (status == true) {
+    document.getElementById("spinner").classList.remove("hidden");
+    document.getElementById("tree_cards_box").classList.add("hidden");
+  } else {
+    document.getElementById("tree_cards_box").classList.remove("hidden");
+    document.getElementById("spinner").classList.add("hidden");
+  }
+};
+
 const loadTreeCards = (id) => {
+  manageSpinner(true);
   const url =
     id === 0
       ? "https://openapi.programming-hero.com/api/plants"
@@ -141,4 +153,6 @@ const displayTreeCards = (plants) => {
 
     treeCardsBox.append(card);
   }
+
+  manageSpinner(false);
 };
