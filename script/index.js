@@ -13,10 +13,25 @@ const loadTreeCards = (id) => {
   console.log(url);
   fetch(url)
     .then((res) => res.json())
-    .then((data) => displayTreeCards(data.plants));
+    .then((data) => {
+      removeActive();
+      const activeBtn = document.getElementById(`category-${id}`);
+      activeBtn.classList.add("active");
+      displayTreeCards(data.plants);
+    });
 };
 loadTreeCards(0);
 
+removeActive = () => {
+  const activeBtns = document.querySelectorAll(".category-btn");
+  activeBtns.forEach((activeBtn) => activeBtn.classList.remove("active"));
+};
+
+const shortDescription = (description) => {
+  return description.length > 100
+    ? description.slice(0, 100) + "..."
+    : description;
+};
 // {
 //       "id": 1,
 //       "category_name": "Fruit Tree",
@@ -30,7 +45,7 @@ const displayCategories = (categories) => {
     // console.log(category);
     const categoryDiv = document.createElement("div");
     categoryDiv.innerHTML = `
-    <button class="btn bg-[#f0fdf4] hover:bg-[#15803D90] border-none w-full" id="category-${category.id}" onclick = "loadTreeCards(${category.id})"
+    <button class="btn category-btn bg-[#f0fdf4] hover:bg-[#15803D90] border-none w-full" id="category-${category.id}" onclick = "loadTreeCards(${category.id})"
     class="font-normal text-[16px] py-2 pl-[10px] rounded-[4px] ">
               ${category.category_name}
     </button>
@@ -76,7 +91,7 @@ const displayTreeCards = (plants) => {
             <div class="space-y-2 my-3 w-11/12">
               <h2 class="font-semibold text-sm">${plant.name}</h2>
               <p class="font-normal text-xs">
-                ${plant.description}
+                ${shortDescription(plant.description)}
               </p>
               <div class="flex justify-between">
                 <button
