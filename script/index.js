@@ -69,11 +69,11 @@ const updateTreeCart = () => {
               >
                 <div>
                   <h2 class="font-semibold text-sm">${treeCart[item].plantName}</h2>
-                  <p class="font-normal text-[16px] text-[#1F293750]">
+                  <p class="font-normal text-[16px] text-[#1F293795]">
                     ৳${treeCart[item].price} x ${treeCart[item].quantity}
                   </p>
                 </div>
-                <div onclick="removeFromCart(${item})" class="cursor-pointer text-[#8C8C8C]">x</div>
+                <div onclick="removeFromCart(${item})" class="cursor-pointer text-[#8C8C8C]"><i class="fa-solid fa-xmark"></i></div>
       </div>
               
         `;
@@ -132,7 +132,7 @@ const displayCategories = (categories) => {
     // console.log(category);
     const categoryDiv = document.createElement("div");
     categoryDiv.innerHTML = `
-    <button class=" text-left category-btn active font-normal text-[16px] py-2 pl-[10px] rounded-[4px] bg-[#f0fdf4] hover:bg-[#15803D90] border-none w-full" id="category-${category.id}" onclick = "loadTreeCards(${category.id})"
+    <button class="cursor-pointer text-left category-btn active font-normal text-[16px] py-2 pl-[10px] rounded-[4px] bg-[#f0fdf4] hover:bg-[#15803D90] border-none w-full" id="category-${category.id}" onclick = "loadTreeCards(${category.id})"
     class="font-normal text-[16px] py-2 pl-[10px] rounded-[4px] ">
               ${category.category_name}
     </button>
