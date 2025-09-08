@@ -7,7 +7,7 @@ getCategories();
 
 // modal full tree details
 const fullTreeDetailsModal = (plant) => {
-  console.log(plant);
+  // console.log(plant);
   const detailsBox = document.getElementById("details-container");
   detailsBox.innerHTML = `
 
@@ -32,6 +32,55 @@ const fullTreeDetailsModal = (plant) => {
   document.getElementById("word_modal").showModal();
 };
 
+// add to cart
+const treeCart = {};
+const addToCart = (plant) => {
+  // console.log(plant);
+  if (treeCart[plant.id]) {
+    treeCart[plant.id].quantity += 1;
+  } else {
+    treeCart[plant.id] = {
+      price: plant.price,
+      plantName: plant.name,
+      quantity: 1,
+    };
+  }
+  // console.log(treeCart[plant.id]);
+  updateTreeCart();
+};
+const removeFromCart = (id) => {
+  delete treeCart[id];
+  updateTreeCart();
+};
+const updateTreeCart = () => {
+  // console.log();
+  let plantTotalPrice = document.getElementById("plant_total_price");
+  let treeCartBox = document.getElementById("tree_cart_box");
+  treeCartBox.innerHTML = "";
+  let total = 0;
+
+  for (let item in treeCart) {
+    let itemTotal = treeCart[item].price * treeCart[item].quantity;
+    total += itemTotal;
+
+    treeCartBox.innerHTML += ` 
+     <div
+      class="bg-[#F0FDF4] flex justify-between items-center rounded-lg px-3 py-2"
+              >
+                <div>
+                  <h2 class="font-semibold text-sm">${treeCart[item].plantName}</h2>
+                  <p class="font-normal text-[16px] text-[#1F293750]">
+                    ৳${treeCart[item].price} x ${treeCart[item].quantity}
+                  </p>
+                </div>
+                <div onclick="removeFromCart(${item})" class="cursor-pointer text-[#8C8C8C]">x</div>
+      </div>
+              
+        `;
+  }
+  plantTotalPrice.innerText = total;
+};
+
 const manageSpinner = (status) => {
   if (status == true) {
     document.getElementById("spinner").classList.remove("hidden");
@@ -48,7 +97,7 @@ const loadTreeCards = (id) => {
     id === 0
       ? "https://openapi.programming-hero.com/api/plants"
       : `https://openapi.programming-hero.com/api/category/${id}`;
-  console.log(url);
+  // console.log(url);
   fetch(url)
     .then((res) => res.json())
     .then((data) => {
@@ -142,7 +191,7 @@ const displayTreeCards = (plants) => {
                 <h2>৳ <span>${plant.price}</span></h2>
               </div>
             </div>
-            <button
+            <button onclick='addToCart(${JSON.stringify(plant)})'
               class="btn border-none shadow-none rounded-full bg-[#15803D] text-white w-11/12"
             >
               Add to Cart
