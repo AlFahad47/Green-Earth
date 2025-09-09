@@ -132,7 +132,7 @@ const displayCategories = (categories) => {
     // console.log(category);
     const categoryDiv = document.createElement("div");
     categoryDiv.innerHTML = `
-    <button class="cursor-pointer text-left category-btn active font-normal text-[16px] py-2 pl-[10px] rounded-[4px] bg-[#f0fdf4] hover:bg-[#15803D90] border-none w-full" id="category-${category.id}" onclick = "loadTreeCards(${category.id})"
+    <button class="cursor-pointer text-left category-btn font-normal text-[16px] py-2 pl-[10px] rounded-[4px] bg-[#f0fdf4] hover:bg-[#15803D90] border-none w-full" id="category-${category.id}" onclick = "loadTreeCards(${category.id})"
     class="font-normal text-[16px] py-2 pl-[10px] rounded-[4px] ">
               ${category.category_name}
     </button>
@@ -178,11 +178,13 @@ const displayTreeCards = (plants) => {
             <div class="space-y-2 my-3 w-11/12">
               <h2 onclick='fullTreeDetailsModal(${JSON.stringify(
                 plant
-              )})' class="font-semibold text-sm">${plant.name}</h2>
+              )})' class="cursor-pointer font-semibold text-sm">${
+      plant.name
+    }</h2>
               <p class="font-normal text-xs">
                 ${shortDescription(plant.description)}
               </p>
-              <div class="flex justify-between">
+              <div class="flex justify-between items-center">
                 <button
                   class="btn border-none shadow-none rounded-full bg-[#DCFCE7] text-[#15803D]"
                 >
